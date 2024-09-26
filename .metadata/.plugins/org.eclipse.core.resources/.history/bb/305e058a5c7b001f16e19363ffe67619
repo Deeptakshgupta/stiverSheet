@@ -1,0 +1,43 @@
+package com_stacks;
+
+import java.util.Stack;
+
+/*
+ * Design a data-structure SpecialStack that supports all the stack operations like push(), pop(), isEmpty(), 
+ * isFull() and an additional operation getMin() which should return the minimum element from the SpecialStack. 
+ * Your task is to complete all the functions, using a stack data structure.
+ */
+
+public class stacksMinimum {
+
+	private Stack<Integer> minStack = new Stack<>();
+
+	private Stack<int[]> stack = new Stack<>();
+
+	public void push(int x, Stack<Integer> s) {
+		if (stack.isEmpty()) {
+			stack.push(new int[] { x, x });
+			return;
+		}
+
+		int currentMin = stack.peek()[1];
+		stack.push(new int[] { x, Math.min(x, currentMin) });
+	}
+
+	public int pop(Stack<Integer> s) {
+		int[] ans = stack.pop();
+		return ans[0];
+	}
+
+	public int min(Stack<Integer> s) {
+		return stack.peek()[1];
+	}
+
+	public boolean isFull(Stack<Integer> s, int n) {
+		return stack.size() == n;
+	}
+
+	public boolean isEmpty(Stack<Integer> s) {
+		return stack.size() == 0;
+	}
+}

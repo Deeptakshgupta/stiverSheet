@@ -1,0 +1,24 @@
+package striversSheet.com_stacks;
+
+public class Balances_Parantehesis {
+
+
+    //Function to check if brackets are balanced or not.
+    static boolean ispar(String x)
+    {
+        // add your code here
+        Stack<Character> st = new Stack<>();
+        
+        for( Character c:x.toCharArray()){
+            if(c=='(')
+                st.push(')');
+            else if(c=='[')
+                st.push(']');
+            else if(c=='{')
+                st.push('}');
+            else if (st.isEmpty() || st.pop()!=c)
+                return false;
+        }
+        return st.isEmpty();
+    }
+}

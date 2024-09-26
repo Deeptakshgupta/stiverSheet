@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;striversSheet.com_stacks&apos; to &apos;com_stacks&apos;&#x0D;&#x0A;- Original project: &apos;striversSheet&apos;&#x0D;&#x0A;- Original element: &apos;striversSheet/src/main/java/striversSheet.com_stacks&apos;&#x0D;&#x0A;- Renamed element: &apos;striversSheet/src/main/java/com_stacks&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;striversSheet.com_stacks&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;striversSheet.com_stacks" name="com_stacks" qualified="false" references="true" stamp="1727281837065" textual="false" version="1.0"/>
+</session>
