@@ -1,0 +1,172 @@
+package com_stacks;
+
+import java.util.Stack;
+
+/*
+ * Design a data-structure SpecialStack that supports all the stack operations like push(), pop(), isEmpty(), 
+ * isFull() and an additional operation getMin() which should return the minimum element from the SpecialStack. 
+ * Your task is to complete all the functions, using a stack data structure.
+ */
+
+public class stacksMinimum {
+	
+	/**
+	 * getMin() in O(1) and O(1)
+	 */
+	// push the difference of the minimum element in the stack 
+	// and while poping if we encounter the another minimum element then , retrieve the actual element
+	// and update the current minimum element
+	
+
+	
+	 Stack<Integer> s;
+	    Integer minEle;
+	 
+	    // Constructor
+	    MyStack() { s = new Stack<Integer>(); }
+	 
+	    // Prints minimum element of MyStack
+	    void getMin()
+	    {
+	        // Get the minimum number in the entire stack
+	        if (s.isEmpty())
+	            System.out.println("Stack is empty");
+	 
+	        // variable minEle stores the minimum element
+	        // in the stack.
+	        else
+	            System.out.println("Minimum Element in the "
+	                               + " stack is: " + minEle);
+	    }
+	 
+	    // prints top element of MyStack
+	    void peek()
+	    {
+	        if (s.isEmpty()) {
+	            System.out.println("Stack is empty ");
+	            return;
+	        }
+	 
+	        Integer t = s.peek(); // Top element.
+	 
+	        System.out.print("Top Most Element is: ");
+	 
+	        // If t < minEle means minEle stores
+	        // value of t.
+	        if (t < minEle)
+	            System.out.println(minEle);
+	        else
+	            System.out.println(t);
+	    }
+	 
+	    // Removes the top element from MyStack
+	    void pop()
+	    {
+	        if (s.isEmpty()) {
+	            System.out.println("Stack is empty");
+	            return;
+	        }
+	 
+	        System.out.print("Top Most Element Removed: ");
+	        Integer t = s.pop();
+	 
+	        // Minimum will change as the minimum element
+	        // of the stack is being removed.
+	        if (t < minEle) {
+	            System.out.println(minEle);
+	            minEle = 2 * minEle - t;
+	        }
+	 
+	        else
+	            System.out.println(t);
+	    }
+	 
+	    // Insert new number into MyStack
+	    void push(Integer x)
+	    {
+	        if (s.isEmpty()) {
+	            minEle = x;
+	            s.push(x);
+	            System.out.println("Number Inserted: " + x);
+	            return;
+	        }
+	 
+	        // If new number is less than original minEle
+	        if (x < minEle) {
+	            s.push(2 * x - minEle);
+	            minEle = x;
+	        }
+	 
+	        else
+	            s.push(x);
+	 
+	        System.out.println("Number Inserted: " + x);
+	    }
+	};
+	 
+	// Driver Code
+	public class Main {    public static void main(String[] args)
+	    {
+	        MyStack s = new MyStack();
+	       
+	          // Function calls
+	        s.push(3);
+	        s.push(5);
+	        s.getMin();
+	        s.push(2);
+	        s.push(1);
+	        s.getMin();
+	        s.pop();
+	        s.getMin();
+	        s.pop();
+	        s.peek();
+	    }
+	
+	
+	
+	
+	
+	/** wrong approach as we want to maintain the minimum of the stack 
+	 * while we do the push and pop operations 
+	 */
+	
+	
+	private Stack<int[]> stack = new Stack<>();
+	// to maintain the minimum element alongside the stack structure
+
+	public void push(int x, Stack<Integer> s) {
+		if (stack.isEmpty()) {
+			stack.push(new int[] { x, x });
+			return;
+		}
+
+		int currentMin = stack.peek()[1];
+		stack.push(new int[] { x, Math.min(x, currentMin) });
+	}
+
+	public int pop(Stack<Integer> s) {
+		int[] ans = stack.pop();
+		return ans[0];
+	}
+
+	public int min(Stack<Integer> s) {
+		return stack.peek()[1];
+	}
+
+	public boolean isFull(Stack<Integer> s, int n) {
+		return stack.size() == n;
+	}
+
+	public boolean isEmpty(Stack<Integer> s) {
+		return stack.size() == 0;
+	}
+}
+
+/*
+ * Complexity
+ * 
+ * Time Complexity : O(1), for all operations.
+ * Space Complexity : O(n), Worst
+ * case is that all the operations are push. In this case, there will be
+ * O(2⋅n)=O(n)O(2 \cdot n) = O(n)O(2⋅n)=O(n) space used.
+ */
