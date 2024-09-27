@@ -1,0 +1,72 @@
+package com_stacks;
+
+import java.util.Stack;
+
+/*
+ * Design a data-structure SpecialStack that supports all the stack operations like push(), pop(), isEmpty(), 
+ * isFull() and an additional operation getMin() which should return the minimum element from the SpecialStack. 
+ * Your task is to complete all the functions, using a stack data structure.
+ */
+
+public class stacksMinimum {
+	
+	/**
+	 * getMin() in O(1) and O(1)
+	 */
+	// push the difference of the minimum element in the stack 
+	// and while poping if we encounter the another minimum element then , retrieve the actual element
+	// and update the current minimum element
+	
+/**
+ * 
+ * 
+ * **/	
+	
+	
+	
+	
+	
+	/** wrong approach as we want to maintain the minimum of the stack 
+	 * while we do the push and pop operations 
+	 */
+	
+	
+	private Stack<int[]> stack = new Stack<>();
+	// to maintain the minimum element alongside the stack structure
+
+	public void push(int x, Stack<Integer> s) {
+		if (stack.isEmpty()) {
+			stack.push(new int[] { x, x });
+			return;
+		}
+
+		int currentMin = stack.peek()[1];
+		stack.push(new int[] { x, Math.min(x, currentMin) });
+	}
+
+	public int pop(Stack<Integer> s) {
+		int[] ans = stack.pop();
+		return ans[0];
+	}
+
+	public int min(Stack<Integer> s) {
+		return stack.peek()[1];
+	}
+
+	public boolean isFull(Stack<Integer> s, int n) {
+		return stack.size() == n;
+	}
+
+	public boolean isEmpty(Stack<Integer> s) {
+		return stack.size() == 0;
+	}
+}
+
+/*
+ * Complexity
+ * 
+ * Time Complexity : O(1), for all operations.
+ * Space Complexity : O(n), Worst
+ * case is that all the operations are push. In this case, there will be
+ * O(2⋅n)=O(n)O(2 \cdot n) = O(n)O(2⋅n)=O(n) space used.
+ */
