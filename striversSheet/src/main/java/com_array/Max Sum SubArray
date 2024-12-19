@@ -1,0 +1,16 @@
+//Kadande's Algo
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int sum = 0;
+        int max = nums[0];
+
+        for(int n = 0; n < nums.length; n++){ 
+            sum += nums[n];
+            max = max<sum? sum:max;
+            sum = sum<0? 0:sum;
+        }
+
+        return max;
+        
+    }
+}
