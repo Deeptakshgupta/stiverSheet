@@ -1,0 +1,34 @@
+class Solution {
+    public int maxProduct(int[] nums) {
+       
+       int maxPdt = Integer.MIN_VALUE ;
+       int pdt = 1;
+// calculate Max Product from left
+       for(int i =0; i<nums.length; i++){
+            pdt = pdt * nums[i];
+
+        if(pdt > maxPdt)
+            maxPdt = pdt;
+        if(pdt ==0)
+            pdt =1;    
+
+       }
+
+       pdt = 1;
+// calculate Max Product from right
+       for( int i = nums.length - 1; i>=0 ; i--){
+
+            pdt *=nums[i];
+
+            maxPdt=Math.max(pdt,maxPdt);
+            
+            if(pdt==0)
+                pdt =1;
+       }
+
+// return maxPdt from left & right side
+       return maxPdt;
+
+
+    }
+}
