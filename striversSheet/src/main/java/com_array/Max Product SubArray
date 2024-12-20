@@ -1,3 +1,9 @@
+// Using Kadane's Algo
+// but in case 0 occurs in between 
+// so to tackle this we take out the left and right max product
+// and choose the max between them
+
+
 class Solution {
     public int maxProduct(int[] nums) {
        
