@@ -1,0 +1,84 @@
+// 2ways
+//1.) O(2n) space complexity -> store the left and right max of the array ->
+// -> then select the min out of left and right then minus the  height of the current pillar 
+*******************************************************************************************************************************************
+// 1.)  maintaing the left and right max to calculate
+
+
+static int findWater(int[] arr) {
+        int n = arr.length;
+
+        // Left[i] contains height of tallest bar to the
+        // left of i'th bar including itself
+        int[] left = new int[n];
+
+        // Right[i] contains height of tallest bar to
+        // the right of i'th bar including itself
+        int[] right = new int[n];
+
+        // Initialize result
+        int res = 0;
+
+        // Fill left array
+        left[0] = arr[0];
+        for (int i = 1; i < n; i++)
+            left[i] = Math.max(left[i - 1], arr[i]);
+
+        // Fill right array
+        right[n - 1] = arr[n - 1];
+        for (int i = n - 2; i >= 0; i--)
+            right[i] = Math.max(right[i + 1], arr[i]);
+
+        // Calculate the accumulated water element by element
+        for (int i = 1; i < n - 1; i++) {
+            int minOf2 = Math.min(left[i - 1], right[i + 1]);
+            if (minOf2 > arr[i]) {
+                res += minOf2 - arr[i];
+            }
+        }
+
+        return res;
+    }
+*******************************************************************************************************************************************
+// 2.) using 2 pointers 
+// instead of pre calcultaing the max for left and right sides 
+// point the pointers to the start and ending of the i.e left and right, maintain the max in these 
+// in the same loop add the trapped rain water to the answer 
+
+ static int maxWater(int[] arr) {
+        int left = 1; // not starting with 0 as we can't store water with only 1 pillar
+        int right = arr.length - 2; //not starting with last as we can't store water with only 1 pillar
+
+        // lMax : Maximum in subarray arr[0..left-1]
+        // rMax : Maximum in subarray arr[right+1..n-1]
+        int lMax = arr[left - 1]; // init the lMax with the  first Pillar
+        int rMax = arr[right + 1]; // init the RMax with the last Pillar
+
+        int res = 0;
+        while (left <= right) {
+          
+            // If rMax is smaller, then we can decide the amount of water for arr[right]
+            if (rMax <= lMax) {
+              
+                // Add the water for arr[right]
+                res += Math.max(0, rMax - arr[right]);
+
+                // Update right max
+                rMax = Math.max(rMax, arr[right]);
+
+                // Update right pointer as we have decided the amount of water for this
+                right -= 1;
+            } else { 
+              
+                // Add the water for arr[left]
+                res += Math.max(0, lMax - arr[left]);
+
+                // Update left max
+                lMax = Math.max(lMax, arr[left]);
+
+                // Update left pointer as we have decided water for this
+                left += 1;
+            }
+        }
+        return res;
+    }
