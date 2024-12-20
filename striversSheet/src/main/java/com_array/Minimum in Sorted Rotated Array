@@ -1,0 +1,28 @@
+// Use Binary Search to achieve O(log n)
+// we can simply traverse and fing the minimum in O(1)
+// but as array is sorted we can go with Binary Search also
+
+class Solution {
+    public int findMin(int[] nums) {
+        int n = nums.length;
+        int low = 0;
+        int high = n - 1;
+        int middle = 0;
+        while (low < high) {
+            // middle = (low + high) / 2;
+/*    instead use =>    mid = low + (high - low) /2;  
+  this way mid can never cross high i.e. the upmost limit 
+*/
+  
+          middle = low + (high-low)/2;
+
+            if (nums[middle] > nums[high]) {
+                low = middle + 1;
+            }
+            else {
+                high = middle;
+            }
+        }
+        return nums[high];
+    }
+}
