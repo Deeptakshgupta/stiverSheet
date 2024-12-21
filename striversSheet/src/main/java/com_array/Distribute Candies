@@ -1,0 +1,21 @@
+// AtLeast distribute n/2 candies if unqiue 
+// if unique candies are less than n/2 then return number of unique candies
+
+class Solution {
+    public int distributeCandies(int[] candyType) {
+
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int n= candyType.length/2;
+
+        for(int i :candyType){
+            map.put(i,map.getOrDefault(i,0)+1);
+            if(map.size()>n)
+                return n;
+        }
+        if(map.size()<(candyType.length/2))
+            return map.size();
+        
+
+        return candyType.length/2;
+    }
+}
