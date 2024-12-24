@@ -1,0 +1,54 @@
+// Usage of Linked List Over ArrayList
+// Although the elment has to be appended in the last
+
+/*
+
+
+Efficient Operations at the End:
+
+Adding an element to the end (merged.add(interval)) is more efficient with a LinkedList than an ArrayList. In a LinkedList, appending an element takes constant time, O(1), because it simply involves adding a new node at the tail of the list.
+In contrast, adding an element to the end of an ArrayList can take O(1) on average, but in the worst case, it requires resizing the underlying array, which is an O(n) operation when the array needs to grow.
+Efficient Modification of the Last Element:
+
+When merging intervals, the code checks the last element in the merged list using merged.getLast(). In a LinkedList, getting the last element is a constant time operation, O(1).
+For an ArrayList, getting the last element using merged.get(merged.size() - 1) is also O(1), but the main advantage of LinkedList comes when you need to modify the last element (via merged.getLast()[1] = ...), which is direct and efficient in a LinkedList.
+Avoiding Expensive Shifting:
+
+A typical operation in an ArrayList (insertions or deletions other than at the end) requires shifting elements, which takes O(n) time. While this is not a concern here because the code only appends to the end or modifies the last element, 
+if there were any need to remove or insert intervals in the middle, a LinkedList would perform better because shifting elements is not required in a LinkedList.
+
+
+*/
+
+/**
+Similar to insert interval but works more efficienlty
+=> Number of if else are less
+using Linked list also decreases the insertion cost in 
+Default ArraList size = 10 , more than 10 elements => resizing => O(n) operation
+ LinkedList in Java does not have a concept of initial capacity.
+
+**/
+
+
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+        LinkedList<int[]> merged = new LinkedList<>();
+        for (int[] interval : intervals) {
+            // if the list of merged intervals is empty or if the current
+            // interval does not overlap with the previous, simply append it.
+            if (merged.isEmpty() || merged.getLast()[1] < interval[0]) {
+                merged.add(interval);
+            }
+            // otherwise, there is overlap, so we merge the current and previous
+            // intervals.
+            else {
+                merged.getLast()[1] = Math.max(
+                    merged.getLast()[1],
+                    interval[1]
+                );
+            }
+        }
+        return merged.toArray(new int[merged.size()][]);
+    }
+}
