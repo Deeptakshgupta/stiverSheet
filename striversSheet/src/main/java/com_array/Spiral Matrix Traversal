@@ -4,6 +4,42 @@ class Solution {
         int cols = matrix[0].length;
         int x = 0;
         int y = 0;
+        int dx = 0; // Start moving in the right direction (x direction)
+        int dy = 1; // Move downwards in the y direction
+        List<Integer> res = new ArrayList<>();
+
+        for (int i = 0; i < rows * cols; i++) {
+            res.add(matrix[x][y]); // Accessing matrix using matrix[x][y]
+            matrix[x][y] = -101; // Marking the visited cell
+
+            // Check if the next cell is within bounds and not already visited
+            if (!(0 <= x + dx && x + dx < rows && 0 <= y + dy && y + dy < cols) || matrix[x + dx][y + dy] == -101) {
+                int temp = dx;
+                dx = dy;
+                dy = -temp;
+            }
+
+            // Move to the next cell
+            x += dx;
+            y += dy;
+        }
+
+        return res;        
+    }
+}
+
+
+
+
+
+
+*******************************************************************************************************************
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        int x = 0;
+        int y = 0;
         int dx = 1;
         int dy = 0;
         List<Integer> res = new ArrayList<>();
