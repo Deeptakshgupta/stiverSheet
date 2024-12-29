@@ -1,0 +1,96 @@
+// ReArrange the list such that
+// it's of order 1->n-1->2->n-2 .......................
+
+/**
+3. Steps Solution
+Find mid
+reverse the 2nd half
+merge both the lists
+**/
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+
+
+        ListNode slow = findMid(head);
+        ListNode secondHalf = slow.next;
+       
+        slow.next = null;
+       
+        ListNode second = reverseList(secondHalf);
+        print(second);
+       
+        // Step 3: Merge the two halves
+        ListNode firstHalf = head;
+        while (second != null) {
+            ListNode temp1 = firstHalf.next;
+            ListNode temp2 = second.next;
+            firstHalf.next = second;
+            second.next = temp1;
+            firstHalf = temp1;
+            second = temp2;
+        }
+    
+    }
+
+    ListNode findMid(ListNode head){
+        ListNode slow = head, fast = head;
+        while(fast!= null && fast.next!=null){
+
+            fast = fast.next.next;
+            slow = slow.next;
+
+        }
+        return slow;
+    }
+
+    
+
+    // ListNode mergeRearranged(ListNode h1,Listnode h2){
+    //     ListNode head = h1;
+    //     ListNode node = head;
+    //     h1 = h1.next;
+    //     while(h1!= null && h2!= null){
+    //         node.next = h2;
+    //         node = h2;
+    //         node.next = h1;
+    //         h2= h2.next;
+    //         h1= h1.next;
+
+    //     }
+    //     node.next = (h1!=null)? h1 : h2;
+    //     h1= head;
+    // }
+
+    ListNode reverseList(ListNode head){
+        ListNode node = null;
+         while (head != null) {
+             
+            ListNode temp = head.next;
+            head.next = node;
+            node = head;
+            head = temp;
+           
+        }
+        return node;
+    }
+    void print(ListNode head){
+        System.out.println("Print Called");
+        ListNode temp = head;
+        while(temp!=null){
+            System.out.println(temp.val);
+            temp=temp.next;
+        }
+    }
+}
