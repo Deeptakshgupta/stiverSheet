@@ -1,0 +1,64 @@
+
+
+
+
+
+
+
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int maxLength = 0, left =0;
+        HashMap<Character, Integer> map = new HashMap<>();
+// for case  when s=" ", we have to add 1
+        for( int right = 0; right <s.length(); right++){
+            char c = s.charAt(right);
+            if(map.get(c)!= null && map.get(c)>=left)
+            {
+                left = map.get(c) +1; // when s= " " , answer should be 1 -> if we don't add 1 here it will give 0 as the answer 
+              // while the expected answer is 1
+            }
+            maxLength = Math.max(maxLength,right -left +1);
+            map.put(c,right);
+        }
+
+        return maxLength;
+    }
+
+
+
+
+   
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+****************************************************************************************888
+  public int lengthOfLongestSubstring(String str) {
+        boolean[] map = new boolean[128];
+        int left = 0;
+        int ans = 0;
+        char[] ch = str.toCharArray();
+        for (int right = 0; right < str.length(); right++) {
+            if (map[ch[right]]) {
+                while (left < right && map[ch[right]]) {
+                    map[ch[left]] = false;
+                    left++;
+                }
+            }
+            map[ch[right]] = true;
+            int curr = right - left + 1;
+            if (ans < curr)
+                ans = curr;
+        }
+        return ans;
+    }
