@@ -1,0 +1,26 @@
+// use 2 pointer to calculate the area and 
+// one by one remove the pointer whose height is less
+// in this way travese whole array and calculate all areas and choose the max areas
+
+
+class Solution {
+
+    public int maxArea(int[] height) {
+        int maxArea = 0;
+        int left = 0;
+        int right = height.length - 1;
+
+        while (left < right) {
+            maxArea = Math.max(maxArea, (right - left) * Math.min(height[left], height[right]));
+
+            if (height[left] < height[right]) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+
+        return maxArea;        
+    }
+}
+   
