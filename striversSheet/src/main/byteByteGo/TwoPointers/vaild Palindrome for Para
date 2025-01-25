@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isPalindrome(String s) {
+        String str = s.chars()
+                        .mapToObj(c->(char)c)
+                        .map(Character::toLowerCase)
+                       .filter(Character::isLetterOrDigit)
+                        .map(String::valueOf)
+                        .collect(Collectors.joining());
+
+        return checkPalin(str);
+    }
+    boolean checkPalin(String str){
+        int n  = str.length();
+        for( int i =0 ; i<n/2 ; i++){
+            if(str.charAt(i) != str.charAt(n-i-1))
+                return false;
+            
+        }
+        return true;
+    }
+}
