@@ -1,0 +1,36 @@
+// we can find the x/r and x.r 
+// through the left and right subarrays
+// instead of linear search we can use Hashmap => not HashSet as using map we can store the frequency also
+// map that contains the number to the left of the element
+// and a map that contains all the elements to right of that element
+// using these maps we can find the x/r and x.r values to the left and right of current element
+
+  public static int geometricSequenceTriplets(int[] nums, int r) {
+        // Create two HashMaps to store frequencies of elements on the left and right side
+        HashMap<Integer, Integer> leftMap = new HashMap<>();
+        HashMap<Integer, Integer> rightMap = new HashMap<>();
+        int count = 0;
+
+        // Populate the rightMap with the frequency of each element in the array.
+        for (int num : nums) {
+            rightMap.put(num, rightMap.getOrDefault(num, 0) + 1);
+        }
+
+        // Search for geometric triplets that have 'x' as the center.
+        for (int x : nums) {
+            // Decrement the frequency of 'x' in the rightMap as we process it.
+            rightMap.put(x, rightMap.get(x) - 1);
+
+            // Check if 'x' can form a geometric triplet (x is the center).
+            if (x % r == 0) {
+                int leftCount = leftMap.getOrDefault(x / r, 0);
+                int rightCount = rightMap.getOrDefault(x * r, 0);
+                count += leftCount * rightCount;
+            }
+
+            // Increment the frequency of 'x' in the leftMap as it will be used for future triplets.
+            leftMap.put(x, leftMap.getOrDefault(x, 0) + 1);
+        }
+
+        return count;
+    }
