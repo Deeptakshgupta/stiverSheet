@@ -1,0 +1,28 @@
+/*
+Use 2 pointers, make difference of n-1 b/w them,
+start from one position before so that if we have to remove ist node then also we can do so
+
+when there will be a gap of n nodes, then move both nodes until one points to null
+here prev pointer will point to one node before nth node from the end
+*/
+
+
+class Solution {
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode res = new ListNode(0, head);
+        ListNode dummy = res;
+
+        for (int i = 0; i < n; i++) {
+            head = head.next;
+        }
+
+        while (head != null) {
+            head = head.next;
+            dummy = dummy.next;
+        }
+
+        dummy.next = dummy.next.next;
+
+        return res.next;        
+    }
+}
