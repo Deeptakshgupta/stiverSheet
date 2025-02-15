@@ -1,0 +1,15 @@
+/*
+Create a pointer to set the next value of the head
+
+*/
+class Solution {
+    public ListNode reverseList(ListNode head) {
+      ListNode next = null;
+
+      while(head!= null){
+      ListNode temp = head.next;
+      head.next = next;
+      next = head;
+      head = temp;
+    }
+}
